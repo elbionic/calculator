@@ -1,8 +1,12 @@
 let firstNumber = null;
 let secondNumber = null;
 let operator = "";
-let displayValue = null;
+let displayValueFirst = null;
+let displayValueSecond = null;
 let solution = null;
+let stringHolderFirst = "";
+let stringHolderSecond = "";
+let digitCount = null;
 
 let add = (a, b) => a + b;
 let subtract = (a, b) => a - b;
@@ -12,21 +16,45 @@ let invert = (a) => a * (-1);
 let percent = (a) => a / 100;
 
 let displayOutput = document.querySelector("#display-output");
-displayOutput.textContent = "YUMY # please";
+displayOutput.textContent = "";
+
+let allClearBtn = document.querySelector("#all-clear");
+allClearBtn.addEventListener("click", () => {
+    firstNumber = null;
+    secondNumber = null;
+    operator = "";
+    displayValueFirst = null;
+    displayValueSecond = null;
+    solution = null;
+    stringHolderFirst = "";
+    stringHolderSecond = "";
+    digitCount = null;
+    return displayOutput.textContent = "";
+});
 
 let numberChoices = document.querySelectorAll(".button.number");
 let numberChoicesArr = Array.from(numberChoices);
 
 numberChoicesArr.forEach((number) => {
     number.addEventListener("click", () => {
-        displayOutput.textContent = +number.textContent;
-        displayValue = +number.textContent;
-        if (firstNumber === null) {
-            firstNumber = displayValue;
-            console.log(firstNumber);
+        if (operator === "" && digitCount < 9) {
+            stringHolderFirst += +number.textContent.toString();
+            displayValueFirst = +stringHolderFirst;
+            displayOutput.textContent = displayValueFirst;
+            digitCount = digitCount + 1;
+            console.log(stringHolderFirst);
+            console.log(displayValueFirst);
+            return firstNumber = displayValueFirst
+        } if (operator != "") {
+            displayOutput.textContent = "";
+            stringHolderSecond += +number.textContent.toString();
+            displayValueSecond = +stringHolderSecond;
+            displayOutput.textContent = displayValueSecond;
+            console.log(stringHolderSecond);
+            console.log(displayValueSecond);
+            return secondNumber = displayValueSecond;
         } else {
-            secondNumber = displayValue;
-            console.log(secondNumber);
+            alert("Enough numbers genius! Press an operator please.");
         }
     });
 });
@@ -56,16 +84,24 @@ let operate = () => {
         solution = percent(firstNumber);
     } if (operator === null) {
         alert("ERROR: please put in a operator");
-    } if (firstNumber === null || secondNumber === null) {
+    } if (firstNumber === null && secondNumber === null) {
         alert("ERROR: please put in a number")
-    } 
+    }
     console.log(solution);
     displayOutput.textContent = solution;
+    firstNumber = solution;
+    secondNumber = null;
+    displayValueSecond = null;
+    stringHolderSecond = "";
+    displayValueFirst = null;
+    stringHolderFirst = "";
     return solution;
 }
 
 let equalSignChoice = document.querySelector(".button.equality");
 equalSignChoice.addEventListener("click", operate);
+
+
 
 
 
