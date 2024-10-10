@@ -7,6 +7,7 @@ let solution = null;
 let stringHolderFirst = "";
 let stringHolderSecond = "";
 let digitCount = null;
+let solutionString = "";
 
 let add = (a, b) => a + b;
 let subtract = (a, b) => a - b;
@@ -88,6 +89,14 @@ let operate = () => {
         alert("ERROR: please put in a number")
     }
     console.log(solution);
+    solutionString = solution.toString();
+    if (solutionString.length > 11 && solution % 1 !== 0) {
+        solution = +(Math.round(solution + "e+2") + "e-2");
+    } else if (solutionString.length > 11 || solution > 99999999999) {
+        alert("The calculation is overfloating the display");
+        return displayOutput.textContent = "Overfloat!";
+    }
+    console.log(solutionString);
     displayOutput.textContent = solution;
     firstNumber = solution;
     secondNumber = null;
@@ -100,8 +109,6 @@ let operate = () => {
 
 let equalSignChoice = document.querySelector(".button.equality");
 equalSignChoice.addEventListener("click", operate);
-
-
 
 
 
