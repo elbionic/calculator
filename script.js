@@ -10,6 +10,7 @@ let digitCountFirst = null;
 let digitCountSecond = null;
 let solutionString = "";
 let dotString = ".";
+let pressedOperator = "";
 
 let add = (a, b) => a + b;
 let subtract = (a, b) => a - b;
@@ -50,6 +51,9 @@ numberChoicesArr.forEach((number) => {
             console.log(displayValueFirst);
             return firstNumber = displayValueFirst;
         } else if (operator != "" && digitCountSecond < 9) {
+            operatorChoicesArr.forEach((item) => {
+                item.style.opacity = "1";
+            });
             displayOutput.textContent = "";
             stringHolderSecond += +number.textContent.toString();
             displayValueSecond = +stringHolderSecond;
@@ -68,7 +72,10 @@ let operatorChoices = document.querySelectorAll(".button.operator");
 let operatorChoicesArr = Array.from(operatorChoices);
 
 operatorChoicesArr.forEach((item) => {
-    item.addEventListener("click", () => {
+    item.addEventListener("click", (e) => {
+        // console.log(item);
+        // console.log(e);
+        item.style.opacity = "0.5";
         if (operator != "" && firstNumber != null && secondNumber != null) {
             operate();
         }
@@ -177,3 +184,9 @@ undoBtn.addEventListener("click", undoLastInput = () => {
     }
 });
     
+
+
+// KEYBOARD SUPPORT
+document.addEventListener("keypress", function (e) {
+    console.log(e);
+});
