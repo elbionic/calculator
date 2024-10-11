@@ -6,7 +6,8 @@ let displayValueSecond = null;
 let solution = null;
 let stringHolderFirst = "";
 let stringHolderSecond = "";
-let digitCount = null;
+let digitCountFirst = null;
+let digitCountSecond = null;
 let solutionString = "";
 
 let add = (a, b) => a + b;
@@ -29,7 +30,8 @@ allClearBtn.addEventListener("click", () => {
     solution = null;
     stringHolderFirst = "";
     stringHolderSecond = "";
-    digitCount = null;
+    digitCountFirst = null;
+    digitCountSecond = null;
     return displayOutput.textContent = "";
 });
 
@@ -38,25 +40,26 @@ let numberChoicesArr = Array.from(numberChoices);
 
 numberChoicesArr.forEach((number) => {
     number.addEventListener("click", () => {
-        if (operator === "" && digitCount < 9) {
+        if (operator === "" && digitCountFirst < 9) {
             stringHolderFirst += +number.textContent.toString();
             displayValueFirst = +stringHolderFirst;
             displayOutput.textContent = displayValueFirst;
-            digitCount = digitCount + 1;
+            digitCountFirst = digitCountFirst + 1;
             console.log(stringHolderFirst);
             console.log(displayValueFirst);
             return firstNumber = displayValueFirst
-        } if (operator != "") {
+        } else if (operator != "" && digitCountSecond < 9) {
             displayOutput.textContent = "";
             stringHolderSecond += +number.textContent.toString();
             displayValueSecond = +stringHolderSecond;
             displayOutput.textContent = displayValueSecond;
+            digitCountSecond = digitCountSecond + 1;
             console.log(stringHolderSecond);
             console.log(displayValueSecond);
             return secondNumber = displayValueSecond;
         } else {
             alert("Enough numbers genius! Press an operator please.");
-        }
+        };
     });
 });
 
@@ -65,7 +68,13 @@ let operatorChoicesArr = Array.from(operatorChoices);
 
 operatorChoicesArr.forEach((item) => {
     item.addEventListener("click", () => {
+        if (operator != "" && firstNumber != null && secondNumber != null) {
+            operate();
+        }
         operator = item.id;
+        if (firstNumber != null && (operator === "invert-number" || operator === "percent")) {
+            operate();
+        }
         console.log(operator);
     });
 });
@@ -78,7 +87,12 @@ let operate = () => {
     } if (operator === "multiplication") {
         solution = multiply(firstNumber, secondNumber);
     } if (operator === "division") {
-        solution = divide(firstNumber, secondNumber);
+        if (secondNumber === 0) {
+            alert("Don't divide by 0 Hero")
+            solution = "Don't divide by 0 Hero";
+        } else {
+            solution = divide(firstNumber, secondNumber);
+        }
     } if (operator === "invert-number") {
         solution = invert(firstNumber);
     } if (operator === "percent") {
@@ -88,10 +102,13 @@ let operate = () => {
     } if (firstNumber === null && secondNumber === null) {
         alert("ERROR: please put in a number")
     }
-    console.log(solution);
+    if (solution === null) {
+        alert("ERROR: invalid operation");
+        solution = "NonSense"
+    }
     solutionString = solution.toString();
     if (solutionString.length > 11 && solution % 1 !== 0) {
-        solution = +(Math.round(solution + "e+2") + "e-2");
+        solution = +(Math.round(solution + "e+11") + "e-11");
     } else if (solutionString.length > 11 || solution > 99999999999) {
         alert("The calculation is overfloating the display");
         return displayOutput.textContent = "Overfloat!";
