@@ -9,6 +9,7 @@ let stringHolderSecond = "";
 let digitCountFirst = null;
 let digitCountSecond = null;
 let solutionString = "";
+let dotString = ".";
 
 let add = (a, b) => a + b;
 let subtract = (a, b) => a - b;
@@ -47,7 +48,7 @@ numberChoicesArr.forEach((number) => {
             digitCountFirst = digitCountFirst + 1;
             console.log(stringHolderFirst);
             console.log(displayValueFirst);
-            return firstNumber = displayValueFirst
+            return firstNumber = displayValueFirst;
         } else if (operator != "" && digitCountSecond < 9) {
             displayOutput.textContent = "";
             stringHolderSecond += +number.textContent.toString();
@@ -108,7 +109,7 @@ let operate = () => {
     }
     solutionString = solution.toString();
     if (solutionString.length > 11 && solution % 1 !== 0) {
-        solution = +(Math.round(solution + "e+11") + "e-11");
+        solution = +(Math.round(solution + "e+9") + "e-9");
     } else if (solutionString.length > 11 || solution > 99999999999) {
         alert("The calculation is overfloating the display");
         return displayOutput.textContent = "Overfloat!";
@@ -129,3 +130,24 @@ equalSignChoice.addEventListener("click", operate);
 
 
 
+
+let dotSymbol = document.querySelector(".button.dot");
+dotSymbol.addEventListener("click", insertDot = () => {
+    if (firstNumber === null && secondNumber === null) {
+        alert("Inserting a dot currently not possible!");
+    } else if (firstNumber != null && secondNumber === null) {
+        stringHolderFirst += dotString;
+        displayValueFirst = +stringHolderFirst;
+        displayOutput.textContent = displayValueFirst;
+        console.log(stringHolderFirst);
+        console.log(displayValueFirst);
+        return firstNumber = displayValueFirst;
+    } else if (firstNumber != null && secondNumber != null) {
+        stringHolderSecond += dotString;
+        displayValueSecond = +stringHolderSecond;
+        displayOutput.textContent = displayValueSecond;
+        console.log(stringHolderSecond);
+        console.log(displayValueSecond);
+    }
+});
+    
