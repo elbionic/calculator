@@ -131,7 +131,7 @@ equalSignChoice.addEventListener("click", operate);
 
 
 
-let dotSymbol = document.querySelector(".button.dot");
+const dotSymbol = document.querySelector(".button.dot");
 dotSymbol.addEventListener("click", insertDot = () => {
     if (firstNumber === null && secondNumber === null) {
         alert("Inserting a dot currently not possible!");
@@ -148,6 +148,32 @@ dotSymbol.addEventListener("click", insertDot = () => {
         displayOutput.textContent = displayValueSecond;
         console.log(stringHolderSecond);
         console.log(displayValueSecond);
+    } else {
+        alert("ERROR: please refresh page!");
+    }
+});
+
+
+const undoBtn = document.querySelector("#backspace");
+undoBtn.addEventListener("click", undoLastInput = () => {
+    if (firstNumber === null && secondNumber === null) {
+        alert("Nothing to undo jet!"); 
+    } else if (firstNumber != null && secondNumber === null) {
+        stringHolderFirst = stringHolderFirst.slice(0, -1);
+        console.log(stringHolderFirst);
+        displayValueFirst = +stringHolderFirst;
+        displayOutput.textContent = displayValueFirst;
+        console.log(displayValueFirst);
+        return firstNumber = displayValueFirst;
+    } else if (firstNumber != null && secondNumber != null) {
+        stringHolderSecond = stringHolderSecond.slice(0, -1);
+        console.log(stringHolderSecond);
+        displayValueSecond = +stringHolderSecond;
+        displayOutput.textContent = displayValueSecond;
+        console.log(displayValueSecond);
+        return secondNumber = displayValueSecond;
+    } else {
+        alert("ERROR: please refresh page!");
     }
 });
     
