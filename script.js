@@ -201,7 +201,7 @@ undoBtn.addEventListener("click", undoLastInput = () => {
 // ---------------------------------------------------------
 document.addEventListener("keypress", function (event) {
     let key = event.key;
-    console.log(key); 4
+    console.log(key);
     // NUMBERS and DOT
     if (operator === "" & digitCountFirst < 9) {
         if (('0123456789.').includes(key)) {
