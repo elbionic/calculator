@@ -200,7 +200,7 @@ undoBtn.addEventListener("click", undoLastInput = () => {
 // KEYBOARD SUPPORT
 // ---------------------------------------------------------
 document.addEventListener("keypress", function (event) {
-    let key = event.key;
+    let key = event["key"];
     console.log(key);
     // NUMBERS and DOT
     if (operator === "" & digitCountFirst < 9) {
