@@ -253,7 +253,7 @@ document.addEventListener("keypress", function (event) {
         }
     };
 
-    if (("=").includes(key)) {
+    if (("=").includes(key)||("Enter").includes(key)) {
      operate();   
     }
 });
