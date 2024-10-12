@@ -78,7 +78,7 @@ operatorChoicesArr.forEach((item) => {
         operatorChoicesArr.forEach((item) => {
             if ([...item.classList].includes("active")) {
                 item.classList.remove("active");
-            } 
+            }
         });
         item.classList.add("active");
 
@@ -86,7 +86,7 @@ operatorChoicesArr.forEach((item) => {
             alert("Please type in a number before your first operator");
             return operator = "";
         }
-        
+
         if (operator != "" && firstNumber != null && secondNumber != null) {
             operate();
         }
@@ -198,6 +198,62 @@ undoBtn.addEventListener("click", undoLastInput = () => {
 
 
 // KEYBOARD SUPPORT
-document.addEventListener("keypress", function (e) {
-    console.log(e);
+// ---------------------------------------------------------
+document.addEventListener("keypress", function (event) {
+    let key = event.key;
+    console.log(key); 4
+    // NUMBERS and DOT
+    if (operator === "" & digitCountFirst < 9) {
+        if (('0123456789.').includes(key)) {
+            stringHolderFirst += key;
+            displayValueFirst = +stringHolderFirst;
+            displayOutput.textContent = displayValueFirst;
+            digitCountFirst += 1;
+            return firstNumber = displayValueFirst;
+        };
+    } else if (operator != "" && digitCountSecond < 9) {
+        // operatorChoicesArr.forEach((item) => {
+        //     item.classList.remove("active");
+        // });
+        if (('0123456789.').includes(key)) {
+            stringHolderSecond += key;
+            displayValueSecond = +stringHolderSecond;
+            displayOutput.textContent = displayValueSecond;
+            digitCountSecond += 1;
+            return secondNumber = displayValueSecond;
+        };
+    } else {
+        alert("Enough numbers genius! Press an operator please.");
+    };
+
+    // OPERATORS
+    if (('+-*/').includes(key)) {
+        digitCountFirst = 0;
+        digitCountSecond = 0;
+        // operatorChoicesArr.forEach((item) => {
+        //     if ([...item.classList].includes("active")) {
+        //         item.classList.remove("active");
+        //     }
+        // });
+        if (key === "+") {
+            operator = "addition";
+        } else if (key === "-") {
+            operator = "subtraction";
+        } else if (key === "*") {
+            operator = "multiplication";
+        } else if (key === "/") {
+            operator = "division";
+        }
+        if (firstNumber === null && secondNumber === null) {
+            alert("Please type in a number before your first operator");
+            return operator = "";
+        }
+        if (operator != "" && firstNumber != null && secondNumber != null) {
+            operate();
+        }
+    };
+
+    if (("=").includes(key)) {
+     operate();   
+    }
 });
