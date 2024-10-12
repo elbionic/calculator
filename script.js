@@ -10,7 +10,7 @@ let digitCountFirst = null;
 let digitCountSecond = null;
 let solutionString = "";
 let dotString = ".";
-let pressedOperator = "";
+let pressedOperator = false;
 
 let add = (a, b) => a + b;
 let subtract = (a, b) => a - b;
@@ -52,7 +52,7 @@ numberChoicesArr.forEach((number) => {
             return firstNumber = displayValueFirst;
         } else if (operator != "" && digitCountSecond < 9) {
             operatorChoicesArr.forEach((item) => {
-                item.style.opacity = "1";
+                item.classList.remove("active");
             });
             displayOutput.textContent = "";
             stringHolderSecond += +number.textContent.toString();
@@ -70,12 +70,18 @@ numberChoicesArr.forEach((number) => {
 
 let operatorChoices = document.querySelectorAll(".button.operator");
 let operatorChoicesArr = Array.from(operatorChoices);
+console.log(operatorChoices);
+console.log(operatorChoicesArr);
 
 operatorChoicesArr.forEach((item) => {
-    item.addEventListener("click", (e) => {
-        // console.log(item);
-        // console.log(e);
-        item.style.opacity = "0.5";
+    item.addEventListener("click", () => {
+        operatorChoicesArr.forEach((item) => {
+            if ([...item.classList].includes("active")) {
+                item.classList.remove("active");
+            } 
+        });
+        item.classList.add("active");
+        
         if (operator != "" && firstNumber != null && secondNumber != null) {
             operate();
         }
@@ -164,7 +170,7 @@ dotSymbol.addEventListener("click", insertDot = () => {
 const undoBtn = document.querySelector("#backspace");
 undoBtn.addEventListener("click", undoLastInput = () => {
     if (firstNumber === null && secondNumber === null) {
-        alert("Nothing to undo jet!"); 
+        alert("Nothing to undo jet!");
     } else if (firstNumber != null && secondNumber === null) {
         stringHolderFirst = stringHolderFirst.slice(0, -1);
         console.log(stringHolderFirst);
@@ -183,7 +189,7 @@ undoBtn.addEventListener("click", undoLastInput = () => {
         alert("ERROR: please refresh page!");
     }
 });
-    
+
 
 
 // KEYBOARD SUPPORT
