@@ -81,6 +81,11 @@ operatorChoicesArr.forEach((item) => {
             } 
         });
         item.classList.add("active");
+
+        if (firstNumber === null && secondNumber === null) {
+            alert("Please type in a number before your first operator");
+            return operator = "";
+        }
         
         if (operator != "" && firstNumber != null && secondNumber != null) {
             operate();
