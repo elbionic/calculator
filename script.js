@@ -199,9 +199,10 @@ undoBtn.addEventListener("click", undoLastInput = () => {
 
 // KEYBOARD SUPPORT
 // ---------------------------------------------------------
-document.addEventListener("keypress", function (event) {
+document.addEventListener("keydown", function (event) {
     let key = event["key"];
     console.log(key);
+    console.log(event);
     // NUMBERS and DOT
     if (operator === "" & digitCountFirst < 9) {
         if (('0123456789.').includes(key)) {
@@ -252,8 +253,35 @@ document.addEventListener("keypress", function (event) {
             operate();
         }
     };
+    if (("=").includes(key) || ("Enter").includes(key)) {
+        operate();
+    };
 
-    if (("=").includes(key)||("Enter").includes(key)) {
-     operate();   
+    if (("Backspace").includes(key)) {
+        if (secondNumber === null) {
+            stringHolderFirst = stringHolderFirst.slice(0, -1);
+            displayValueFirst = +stringHolderFirst;
+            displayOutput.textContent = displayValueFirst;
+            return firstNumber = displayValueFirst;
+        } else {
+            stringHolderSecond = stringHolderSecond.slice(0, -1);
+            displayValueSecond = +stringHolderSecond;
+            displayOutput.textContent = displayValueSecond;
+            return secondNumber = displayValueSecond;
+        }
+    }
+
+    if (("Delete").includes(key)) {
+        firstNumber = null;
+        secondNumber = null;
+        operator = "";
+        displayValueFirst = null;
+        displayValueSecond = null;
+        solution = null;
+        stringHolderFirst = "";
+        stringHolderSecond = "";
+        digitCountFirst = null;
+        digitCountSecond = null;
+        return displayOutput.textContent = "";
     }
 });
