@@ -213,9 +213,13 @@ document.addEventListener("keydown", function (event) {
             return firstNumber = displayValueFirst;
         };
     } else if (operator != "" && digitCountSecond < 9) {
-        // operatorChoicesArr.forEach((item) => {
-        //     item.classList.remove("active");
-        // });
+
+        operatorChoicesArr.forEach((item) => {
+                if ([...item.classList].includes("active")) {
+                    item.classList.remove("active");
+                }
+            });
+        
         if (('0123456789.').includes(key)) {
             stringHolderSecond += key;
             displayValueSecond = +stringHolderSecond;
@@ -231,25 +235,26 @@ document.addEventListener("keydown", function (event) {
     if (('+-*/').includes(key)) {
         digitCountFirst = 0;
         digitCountSecond = 0;
-        // operatorChoicesArr.forEach((item) => {
-        //     if ([...item.classList].includes("active")) {
-        //         item.classList.remove("active");
-        //     }
-        // });
+
         if (key === "+") {
             operator = "addition";
+            operatorChoicesArr[5].classList.add("active");
         } else if (key === "-") {
             operator = "subtraction";
+            operatorChoicesArr[4].classList.add("active");
         } else if (key === "*") {
             operator = "multiplication";
+            operatorChoicesArr[3].classList.add("active");
         } else if (key === "/") {
             operator = "division";
+            operatorChoicesArr[2].classList.add("active");
         }
         if (firstNumber === null && secondNumber === null) {
             alert("Please type in a number before your first operator");
             return operator = "";
         }
         if (operator != "" && firstNumber != null && secondNumber != null) {
+            
             operate();
         }
     };
